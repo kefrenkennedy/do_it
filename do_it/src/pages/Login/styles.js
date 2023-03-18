@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-import SignupImage from "../../assets/signup.png";
+import LoginImage from "../../assets/login.png";
 
 export const Container = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Background = styled.div`
   @media (min-width: 1100px) {
     flex: 1;
-    background: url(${SignupImage}) no-repeat center, var(--black);
+    background: url(${LoginImage}) no-repeat center, var(--black);
     background-size: contain;
   }
 `;
@@ -25,10 +25,10 @@ export const Content = styled.div`
   max-width: 700px;
 `;
 
-const appearFromRight = keyframes`
+const appearFromLeft = keyframes`
 from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(-50px);
 }
 
 to {
@@ -42,13 +42,10 @@ export const AnimationContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: ${appearFromRight} 1s;
+  animation: ${appearFromLeft} 1s;
 
   form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction:column;;
+    margin: 80px 0;
     width: 340px;
     text-align: center;
 

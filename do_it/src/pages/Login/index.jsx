@@ -8,17 +8,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-function Signup() {
+function Login() {
   const schema = yup.object().shape({
-    name: yup.string().required("Campo Obrigatório."),
     email: yup.string().email("Email inválido.").required("Campo Obrigatório."),
     password: yup
       .string()
       .min(8, "Mínimo de 8 dígitos.")
-      .required("Campo Obrigatório."),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "Senhas diferentes.")
       .required("Campo Obrigatório."),
   });
 
@@ -37,27 +32,18 @@ function Signup() {
     api
       .post("/user/register", user)
       .then((_) => {
-        toast.success("Sucesso ao criar a conta!");
+        toast.success("Sucesso ao logar!");
         return history.push("/login");
       })
-      .catch((err) => toast.error("Erro ao criar a conta, verifique as informações."));
+      .catch((err) => toast.error("Erro ao logar, verifique as informações."));
   };
 
   return (
     <Container>
-      <Background />
       <Content>
         <AnimationContainer>
           <form onSubmit={handleSubmit(onSubmitFunction)}>
-            <h1>Cadastro</h1>
-            <Input
-              register={register}
-              name={"name"}
-              icon={FiUser}
-              label="Nome"
-              placeholder=" Seu nome"
-              errors={errors.name?.message}
-            ></Input>
+            <h1>Login</h1>
             <Input
               register={register}
               name={"email"}
@@ -75,24 +61,16 @@ function Signup() {
               type="password"
               errors={errors.password?.message}
             ></Input>
-            <Input
-              register={register}
-              name={"passwordConfirm"}
-              icon={FiLock}
-              label="Confirmação de senha"
-              placeholder=" Confirmação de senha"
-              type="passwordConfirm"
-              errors={errors.passwordConfirm?.message}
-            ></Input>
             <Button type="submit">Enviar</Button>
             <p>
-              Já tem uma conta? Faça seu <Link to="/login">login</Link>
+              Não tem uma conta? Faça seu <Link to="/signup">Cadastro</Link>
             </p>
           </form>
         </AnimationContainer>
       </Content>
+      <Background />
     </Container>
   );
 }
 
-export default Signup;
+export default Login;
