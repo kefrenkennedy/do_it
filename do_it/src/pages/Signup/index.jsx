@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/input";
 import { AnimationContainer, Background, Container, Content } from "./styles";
@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-function Signup() {
+function Signup({authenticated}) {
   const schema = yup.object().shape({
     name: yup.string().required("Campo Obrigatório."),
     email: yup.string().email("Email inválido.").required("Campo Obrigatório."),
@@ -42,6 +42,10 @@ function Signup() {
       })
       .catch((err) => toast.error("Erro ao criar a conta, verifique as informações."));
   };
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>
